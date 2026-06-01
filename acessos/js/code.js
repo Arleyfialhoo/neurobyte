@@ -163,7 +163,7 @@ function iniciarQuiz() {
 }
 
 function mostrarPergunta() {
-    botoesElement.innerHTML = '';
+    botoesElement.innerText = '';
     proximoBotao.style.display = 'none';
     atualizarBarra();
 
@@ -172,7 +172,7 @@ function mostrarPergunta() {
 
     qAtual.respostas.forEach(resp => {
         const btn = document.createElement("button");
-        btn.innerHTML = resp.texto;
+        btn.textContent = resp.texto;
         btn.classList.add("btn");
 
         btn.onclick = () => {
@@ -211,7 +211,7 @@ proximoBotao.onclick = () => {
         else mensagem = "💪 Não desista, tente novamente!";
 
         questaoElement.innerText = `Fim! Você acertou ${pontuacao} de ${perguntas.length} questões (${percentual}%). ${mensagem}`;
-        botoesElement.innerHTML = '';
+        botoesElement.innerText = '';
         proximoBotao.style.display = 'none';
 
         const reiniciar = document.createElement("button");
