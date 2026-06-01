@@ -1,5 +1,4 @@
-// Perguntas embutidas diretamente — sem fetch, funciona em qualquer ambiente incluindo GitHub Pages
-const perguntas = [
+[
     {
         "id": 1,
         "pergunta": "A tecnologia está presente principalmente em quais aspectos da vida moderna?",
@@ -24,20 +23,20 @@ const perguntas = [
         "id": 3,
         "pergunta": "Qual tag é utilizada para criar um link em HTML?",
         "respostas": [
-            { "texto": "<href>", "correta": false },
-            { "texto": "<link>", "correta": false },
-            { "texto": "<a>", "correta": true },
-            { "texto": "<url>", "correta": false }
+            { "texto": "&lt;href&gt;", "correta": false },
+            { "texto": "&lt;link&gt;", "correta": false },
+            { "texto": "&lt;a&gt;", "correta": true },
+            { "texto": "&lt;url&gt;", "correta": false }
         ]
     },
     {
         "id": 4,
         "pergunta": "Qual elemento HTML é considerado semântico para definir o rodapé de uma página ou seção?",
         "respostas": [
-            { "texto": "<bottom>", "correta": false },
-            { "texto": "<section-end>", "correta": false },
-            { "texto": "<footer>", "correta": true },
-            { "texto": "<end>", "correta": false }
+            { "texto": "&lt;bottom&gt;", "correta": false },
+            { "texto": "&lt;section-end&gt;", "correta": false },
+            { "texto": "&lt;footer&gt;", "correta": true },
+            { "texto": "&lt;end&gt;", "correta": false }
         ]
     },
     {
@@ -62,12 +61,12 @@ const perguntas = [
     },
     {
         "id": 7,
-        "pergunta": "Qual a diferença entre as tags <ul> e <ol>?",
+        "pergunta": "Qual a diferença entre as tags &lt;ul&gt; e &lt;ol&gt;?",
         "respostas": [
-            { "texto": "<ul> é usada apenas para menus e <ol> para textos longos.", "correta": false },
-            { "texto": "<ul> é para listas ordenadas e <ol> para listas não ordenadas.", "correta": false },
+            { "texto": "&lt;ul&gt; é usada apenas para menus e &lt;ol&gt; para textos longos.", "correta": false },
+            { "texto": "&lt;ul&gt; é para listas ordenadas e &lt;ol&gt; para listas não ordenadas.", "correta": false },
             { "texto": "Não há diferença, ambas funcionam da mesma forma.", "correta": false },
-            { "texto": "<ul> cria listas com marcadores (bullets) e <ol> cria listas numeradas.", "correta": true }
+            { "texto": "&lt;ul&gt; cria listas com marcadores (bullets) e &lt;ol&gt; cria listas numeradas.", "correta": true }
         ]
     },
     {
@@ -114,15 +113,15 @@ const perguntas = [
         "id": 12,
         "pergunta": "Qual tag é usada para inserir uma quebra de linha simples no texto?",
         "respostas": [
-            { "texto": "<break>", "correta": false },
-            { "texto": "<br>", "correta": true },
-            { "texto": "<lthr>", "correta": false },
-            { "texto": "<lb>", "correta": false }
+            { "texto": "&lt;break&gt;", "correta": false },
+            { "texto": "&lt;br&gt;", "correta": true },
+            { "texto": "&lt;lthr&gt;", "correta": false },
+            { "texto": "&lt;lb&gt;", "correta": false }
         ]
     },
     {
         "id": 13,
-        "pergunta": "Qual o objetivo principal do atributo alt em uma tag <img>?",
+        "pergunta": "Qual o objetivo principal do atributo alt em uma tag &lt;img&gt;?",
         "respostas": [
             { "texto": "Fornecer um texto alternativo para acessibilidade e casos de erro de carregamento.", "correta": true },
             { "texto": "Aplicar um filtro de cor na imagem.", "correta": false },
@@ -140,88 +139,4 @@ const perguntas = [
             { "texto": "Falta de programadores", "correta": false }
         ]
     }
-];
-
-let perguntaAtual = 0;
-let pontuacao = 0;
-
-const questaoElement = document.getElementById("questao");
-const botoesElement = document.getElementById("botoes");
-const proximoBotao = document.getElementById("proximo");
-const barra = document.getElementById("barra");
-
-function atualizarBarra() {
-    const progresso = (perguntaAtual / perguntas.length) * 100;
-    barra.style.width = progresso + "%";
-}
-
-function iniciarQuiz() {
-    perguntaAtual = 0;
-    pontuacao = 0;
-    atualizarBarra();
-    mostrarPergunta();
-}
-
-function mostrarPergunta() {
-    botoesElement.innerHTML = '';
-    proximoBotao.style.display = 'none';
-    atualizarBarra();
-
-    let qAtual = perguntas[perguntaAtual];
-    questaoElement.innerText = (perguntaAtual + 1) + ". " + qAtual.pergunta;
-
-    qAtual.respostas.forEach(resp => {
-        const btn = document.createElement("button");
-        btn.innerHTML = resp.texto;
-        btn.classList.add("btn");
-
-        btn.onclick = () => {
-            Array.from(botoesElement.children).forEach(b => b.disabled = true);
-
-            if (resp.correta) {
-                btn.classList.add("correct");
-                pontuacao++;
-            } else {
-                btn.classList.add("incorrect");
-                Array.from(botoesElement.children).forEach(b => {
-                    const index = Array.from(botoesElement.children).indexOf(b);
-                    if (qAtual.respostas[index] && qAtual.respostas[index].correta) {
-                        b.classList.add("correct");
-                    }
-                });
-            }
-            proximoBotao.style.display = 'block';
-        };
-        botoesElement.appendChild(btn);
-    });
-}
-
-proximoBotao.onclick = () => {
-    perguntaAtual++;
-    if (perguntaAtual < perguntas.length) {
-        mostrarPergunta();
-    } else {
-        barra.style.width = "100%";
-
-        const percentual = Math.round((pontuacao / perguntas.length) * 100);
-        let mensagem = "";
-        if (percentual === 100) mensagem = "🏆 Perfeito! Parabéns!";
-        else if (percentual >= 70) mensagem = "✅ Muito bem!";
-        else if (percentual >= 50) mensagem = "📚 Continue estudando!";
-        else mensagem = "💪 Não desista, tente novamente!";
-
-        questaoElement.innerText = `Fim! Você acertou ${pontuacao} de ${perguntas.length} questões (${percentual}%). ${mensagem}`;
-        botoesElement.innerHTML = '';
-        proximoBotao.style.display = 'none';
-
-        const reiniciar = document.createElement("button");
-        reiniciar.innerText = "Tentar Novamente";
-        reiniciar.id = "proximo";
-        reiniciar.style.display = "block";
-        reiniciar.style.marginTop = "20px";
-        reiniciar.onclick = () => iniciarQuiz();
-        botoesElement.appendChild(reiniciar);
-    }
-};
-
-iniciarQuiz();
+]

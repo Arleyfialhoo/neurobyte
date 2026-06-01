@@ -169,12 +169,87 @@ main section p {
     line-height: 1.5;
 }
 
+/* ── Botão hamburguer ── */
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 200;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+}
+
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: white;
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: 0.3s ease;
+}
+
+/* Overlay escuro atrás do menu */
+.menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+}
+
+.menu-overlay.ativo {
+    display: block;
+}
+
 @media (max-width: 900px) {
     .secao-dupla { grid-template-columns: 1fr; }
-    .content-wrapper { margin-left: 0; width: 100%; padding: 0 15px; }
-    .sidebar { position: relative; width: 100%; height: auto; border-radius: 0; }
+
+    .content-wrapper {
+        margin-left: 0;
+        width: 100%;
+        padding: 0 15px;
+    }
+
     body { flex-direction: column; }
-    .header-logo { width: 90%; max-width: 500px; }
+
+    .header-logo {
+        width: 90%;
+        max-width: 500px;
+        margin-top: 70px;
+    }
+
+    /* Sidebar some por padrão no mobile */
+    .sidebar {
+        position: fixed;
+        left: -220px;
+        top: 0;
+        width: 200px;
+        height: 100vh;
+        border-radius: 0;
+        z-index: 160;
+        transition: left 0.3s ease;
+        padding: 30px 20px;
+    }
+
+    /* Sidebar aparece quando está ativa */
+    .sidebar.aberto {
+        left: 0;
+    }
+
+    /* Botão hamburguer aparece no mobile */
+    .hamburger {
+        display: block;
+    }
+
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .areas { margin-top: 20px; }

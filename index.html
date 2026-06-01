@@ -12,19 +12,39 @@
 </head>
 
 <body>
-    <aside class="sidebar">
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="menu-overlay" id="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <img src="acessos/imagens/logo-sidebar.png" alt="Logo Neuro Byte" style="width: 160px; height: auto; margin-bottom: 10px;">
         </div>
         <nav aria-label="Navegação principal">
             <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="#objetivo">Objetivo</a></li>
-                <li><a href="#conclusao">Conclusão</a></li>
-                <li><a href="paginas/curso.html">Curso</a></li>
+                <li><a href="index.html" onclick="fecharMenu()">Início</a></li>
+                <li><a href="#objetivo" onclick="fecharMenu()">Objetivo</a></li>
+                <li><a href="#conclusao" onclick="fecharMenu()">Conclusão</a></li>
+                <li><a href="paginas/curso.html" onclick="fecharMenu()">Curso</a></li>
             </ul>
         </nav>
     </aside>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('aberto');
+            overlay.classList.toggle('ativo');
+        });
+        overlay.addEventListener('click', fecharMenu);
+        function fecharMenu() {
+            sidebar.classList.remove('aberto');
+            overlay.classList.remove('ativo');
+        }
+    </script>
 
     <div class="content-wrapper">
         <header>
